@@ -7,6 +7,9 @@ export default function courseReducer(state = [], action) {
         //spread of array and replace course by deep copy of action.couse           
         return [...state,Object.assign({}, action.course)]; 
 
+        case actionTypes.LOAD_COURSES_SUCCESS:
+        //spread of array and replace course by deep copy of action.couse           
+        return action.courses; 
         default: 
             return state;
     }
