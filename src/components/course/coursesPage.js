@@ -7,15 +7,19 @@ import CourseList from './courseList'
 
 class CoursePage extends React.Component {
 
-    // constructor(props, context) {
-    //     super(props, context);
-      
-    // }
+    constructor(props, context) {
+        super(props, context);
+        this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);    
+    }
 
-  
 
     courseRow(course, index){
         return <div key={index} >{course.title}</div>
+    }
+
+    redirectToAddCoursePage(){
+        this.props.history.push('/course/');
+        //browserHistory.Push('/course');
     }
     render() {
        // debugger;
@@ -23,6 +27,7 @@ class CoursePage extends React.Component {
         return (
             <div>
                 <h1>Courses</h1>
+                <input type="submit" value="acc Course button" onClick={this.redirectToAddCoursePage}/>
                 <CourseList courses={courses}/>
            </div>
         );
@@ -30,7 +35,7 @@ class CoursePage extends React.Component {
 }
 
 
-//state is state within redux store. In ject bew values to local state  and render method woill render it... 
+//state is state within redux store. Injects few values to local state  and render method will render it... 
 function mapStateToProps(state, ownProps){
     return {
         courses: state.courseReducerState

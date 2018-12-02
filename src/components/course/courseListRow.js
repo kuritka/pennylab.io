@@ -7,7 +7,7 @@ const CourseListRow = ({course}) => {
     return (
         <tr>
             <td><a href={course.watchHref} >Watch</a></td>
-            <td><Link to={'/course' + course.id}>{course.title}</Link></td>
+            <td><Link to={'/course/' + course.id}>{course.title}</Link></td>
             <td>{course.category}</td>
             <td>{course.authorId}</td>
             <td>{course.length}</td>
