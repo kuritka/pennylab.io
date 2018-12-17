@@ -4,8 +4,10 @@ import CalendarPage from '../calendar/calendarPage'
 import CoursesPage  from '../course/coursesPage'
 import HomePage from '../home/homePage'
 import ManageCoursesPage from '../course/courseManage'
+import LoadingDots from '../loadingDots/loadingDots'
+import {PropTypes} from 'prop-types'
 
-const Header = () => {
+const Header = ({loading}) => {
     return (
         <Router>
             <div>
@@ -21,6 +23,7 @@ const Header = () => {
                     </li>
                     <li>
                         <Link to="about" >About</Link>
+                        {loading && <LoadingDots  />}
                     </li>
                 </ul>
                 <Route exact path="/" component={HomePage} />
@@ -34,6 +37,10 @@ const Header = () => {
     );
 };
 
+
+Header.propTypes = {
+    loading: PropTypes.bool.isRequired
+}
 
 function About() {
     return (

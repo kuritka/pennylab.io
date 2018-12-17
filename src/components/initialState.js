@@ -5,5 +5,6 @@
 export default 
 {
     authors: [],
-    courses: []
+    courses: [],
+    numAjaxCallInProgress: 0
 }

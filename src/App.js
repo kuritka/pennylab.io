@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Provider} from 'react-redux'
+import {connect} from 'react-redux'
 
 import Header from './components/common/header'
 
@@ -11,11 +12,17 @@ class App extends Component {
     return (
       <Provider store={this.props.store}>
         <div className="App">
-              <Header/>
+              <Header loading={this.props.loading}/>
         </div>
       </Provider>
     );
   }
 }
 
-export default App;
+function mapStateToProps (state , ownProps) {
+  return {
+    loading : state.ajaxStatusReducerState > 0
+  }
+}
+
+export default connect(mapStateToProps)(App);

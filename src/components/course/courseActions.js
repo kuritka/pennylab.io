@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import courseApi from '../../api/mockCourseApi';
+import {beginAjaxCall} from '../loadingDots/ajaxStatusActions'
 
 export function createCourse (course) {
   //  debugger;
@@ -25,6 +26,7 @@ export function createCourseSuccess (course) {
 //list of thunks...
 export function loadCourses(){
   return function(dispatch) {
+    dispatch(beginAjaxCall())
     return courseApi.getAllCourses().then(courses => {
       dispatch(loadCoursesSuccess(courses))
     }).catch(error => {throw(error);});
@@ -33,6 +35,7 @@ export function loadCourses(){
 
 export function saveCourse(course){
   return function(dispatch, getState) {
+    dispatch(beginAjaxCall())
     return courseApi.saveCourse(course).then(
       savedCourse => {
         course.id ? dispatch(updateCourseSuccess(savedCourse)) : 
