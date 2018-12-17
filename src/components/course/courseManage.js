@@ -12,7 +12,10 @@ class ManageCourse extends React.Component {
         //if state is not setted correctly (i.e. typo, ornot setted), than component is uncontrolled
         this.state = {
             course: Object.assign({},this.props.course),
-            errors: {}
+            errors: {},
+            //in some cases we want to have local state - saving acknowledgement is such case
+            //thanks this button Save changes to Saving.. and it disables inside CouseForm
+            saving: false 
         }
         this.updateCourseState = this.updateCourseState.bind(this);
         this.saveCourse = this.saveCourse.bind(this);
@@ -35,7 +38,14 @@ class ManageCourse extends React.Component {
 
       saveCourse(event){
          event.preventDefault();
+         this.setState({saving: true});
          this.props.actions.saveCourse(this.state.course)
+            .then(() => this.redirect());
+        // this.props.history.push('/courses');
+      }
+
+      redirect(){
+         this.setState({saving: false});
          this.props.history.push('/courses');
       }
     
@@ -50,7 +60,8 @@ class ManageCourse extends React.Component {
                   errors={this.state.errors} 
                   course={this.state.course} 
                   onChange={this.updateCourseState}
-                  onSave={this.saveCourse}/>
+                  onSave={this.saveCourse}
+                  saving={this.state.saving}/>
             </div>
           );
       }
