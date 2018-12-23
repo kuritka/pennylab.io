@@ -59,7 +59,7 @@ const calendars = [
       },
     },
     {
-        id: 1,
+        id: 2,
         calendar: {
             Mon: {
               Events:[
@@ -117,7 +117,27 @@ const calendars = [
       },
   ];
 
-class CalendarsApi {
+const EmptyCalendar = { 
+    id: 0,
+    calendar: {
+        Mon: {
+        },
+        Tue: {
+        },
+        Wed: {
+        },
+        Thr: {
+        },
+        Fri:{
+        },
+        Sat: {
+        },
+        Sun: {
+        }
+    },
+}
+
+class CalendarApi {
     
     static getAllCalendars() {
         return new Promise((resolve, reject) => {
@@ -126,4 +146,15 @@ class CalendarsApi {
             }, delay);
           });
     }
+
+    static getCalendarById(id) {
+
+        return new Promise((resolve, reject) => {
+            const calendar =  calendars.filter(calendar => calendar.id === id);
+            if(calendar && calendar[0] != null)  resolve(Object.assign([], calendar[0]));
+            resolve(Object.assign([], EmptyCalendar)); 
+        });
+    }
 }
+
+export default CalendarApi;

@@ -6,5 +6,6 @@ export default
 {
     authors: [],
     courses: [],
+    calendar: {},
     numAjaxCallInProgress: 0
 }

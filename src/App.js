@@ -8,7 +8,6 @@ import './App.css';
 
 class App extends Component {
   render() {
-    //console.log(this.props.store)
     return (
       <Provider store={this.props.store}>
         <div className="App">

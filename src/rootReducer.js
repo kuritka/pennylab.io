@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 import courseReducerState from './components/course/courseReducer'
 import authorReducerState from './components/author/authorReducer'
+import calendarReducerSate from './components/calendar/calendarReducer'
 import ajaxStatusReducerState from './components/loadingDots/ajaxStatusReducer'
 
 //any neew reducer must be add here
@@ -8,7 +9,8 @@ import ajaxStatusReducerState from './components/loadingDots/ajaxStatusReducer'
 const rootReducer = combineReducers ({
     courseReducerState,
     authorReducerState,
-    ajaxStatusReducerState
+    ajaxStatusReducerState,
+    calendarReducerSate
 });
 
 export default rootReducer;

@@ -6,6 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import configureStore from './configureStore';
 import { loadCourses } from './components/course/courseActions';
 import { loadAuthors } from './components/author/authorActions';
+import '../node_modules/toastr/build/toastr.min.css';
+import { loadCalendar } from './components/calendar/calendarActions';
 
 
 
@@ -13,6 +15,7 @@ const store = configureStore()
 //passing servrer initial state right here!
 store.dispatch(loadCourses())
 store.dispatch(loadAuthors())
+store.dispatch(loadCalendar())
 ReactDOM.render(<App store={store}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
