@@ -3,7 +3,8 @@ import delay from './delay';
 const calendars = [
     {
       id: 1,
-      calendar: {
+      name: 'Sal 1',
+      schedule: {
           Mon: {
             Events:[
                 {
@@ -23,18 +24,18 @@ const calendars = [
             ]
           },
           Tue: {
-
+            Events:[]
           },
           Wed: {
-
+            Events:[]
           },
           Thr: {
-
+            Events:[]
           },
           Fri:{
             Events:[
                 {
-                    From: "11:30",
+                    From: "12:00",
                     To: "12:30",
                     Note: "blah blah",
                     Subject: "FitBox",
@@ -51,16 +52,17 @@ const calendars = [
             ]
           },
           Sat: {
-
+            Events:[]
           },
           Sun: {
-
+            Events:[]
           }
       },
     },
     {
         id: 2,
-        calendar: {
+        name: "Gym 01",
+        schedule: {
             Mon: {
               Events:[
                   {
@@ -80,13 +82,13 @@ const calendars = [
               ]
             },
             Tue: {
-  
+                Events:[]
             },
             Wed: {
-  
+                Events:[]
             },
             Thr: {
-  
+                Events:[]
             },
             Fri:{
               Events:[
@@ -108,31 +110,54 @@ const calendars = [
               ]
             },
             Sat: {
-  
+                Events:[
+                    {
+                        From: "11:30",
+                        To: "12:30",
+                        Note: "blah blah",
+                        Subject: "FitBox",
+                        Week: "even"
+                    },
+                    {
+                        From: "18:00",
+                        To: "19:00",
+                        Note: "blah blah",
+                        Subject: "FitBox",
+                        Week: "once",
+                        Date: "30/11/2018"
+                    }
+                ]    
             },
             Sun: {
-  
+                Events:[]
             }
         },
       },
   ];
 
-const EmptyCalendar = { 
+export const EmptyCalendar = { 
     id: 0,
-    calendar: {
+    schedule: {
         Mon: {
+            Events:[]
         },
         Tue: {
+            Events:[]
         },
         Wed: {
+            Events:[]
         },
         Thr: {
+            Events:[]
         },
         Fri:{
+            Events:[]
         },
         Sat: {
+            Events:[]
         },
         Sun: {
+            Events:[]
         }
     },
 }

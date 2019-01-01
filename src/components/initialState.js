@@ -1,3 +1,4 @@
+import {EmptyCalendar} from './../api/mockCalendarApi'
 //the more and more reducers will need to have initial state 
 // so it is better to keep it separated on one place. 
 //the right place is here
@@ -6,6 +7,6 @@ export default
 {
     authors: [],
     courses: [],
-    calendar: {},
+    calendar: EmptyCalendar,
     numAjaxCallInProgress: 0
 }

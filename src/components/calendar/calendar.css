@@ -13,8 +13,8 @@
 .day {
     opacity:0.8;
     color:#061c2d;
-    background: #ffffff;
-    border: 1px #90aac4 solid;
+    background: #90aac4;
+    border: 3px  solid rgba(0,0,0,.2);
     width: 3em; 
     height:3em;
     text-align: center;
@@ -25,6 +25,80 @@
 }
 
 .day:hover{
-    cursor: pointer;    
-    border: 1px #0b151f solid;
+    cursor: pointer;
+    background: #0b151f;    
+    border: 3px solid rgba(0,0,0,.2);
+    color: white; 
 }
+
+
+.canvas {
+    border: 1px #90aac4 solid;
+    margin: 0.5cm auto 1cm auto;
+    display: flex;
+    flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    max-width: 800px;
+}
+
+
+.canvasItem {
+    padding: 10px;
+    flex: 1 100%;
+    display: flex;
+    flex-flow: row wrap;
+    -ms-flex-flow: row nowrap;
+}
+
+
+.canvasItem:hover {
+    background: #59748f;
+    cursor: pointer;
+    font-weight:bolder ;
+    color:  white ;
+}
+
+
+.canvasItem > time { 
+    padding-left:20px;
+    text-align: left;
+    width:120px;
+}
+
+.canvasItem > .message { 
+    padding-left:20px;
+    flex: 1;
+    font-size: 0.8em;
+    text-align: left;
+}
+
+.canvasItem > .name { 
+    padding-right:20px;
+    padding-left:20px;
+    font-style: italic;
+    font-size: 0.7em;
+    align-self: flex-end;
+    width: auto;
+}
+
+
+.selected {
+    background: tomato;
+    border: 3px solid rgba(0,0,0,.2);
+}
+
+.selected:hover {
+    background: rgb(25, 105, 25);    
+}
+
+
+.unmarked:nth-child(odd) {
+    background: #b6d1f0
+}
+
+.unmarked:hover {
+    background: #59748f;
+}
+
+
+
