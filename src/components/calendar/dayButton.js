@@ -5,7 +5,8 @@ import {PropTypes} from 'prop-types'
 const DayButton = ({name, onClick}) => {
     return(
         <div>
-            <input type="button" className="day" name={name} onClick={onClick} value={name}/>
+            <input type="radio" className="day" name="day" id={name + "_id"}  onChange={onClick} value={name}  />
+            <label htmlFor={name + "_id"}>{name}</label>
         </div>
     );
 }

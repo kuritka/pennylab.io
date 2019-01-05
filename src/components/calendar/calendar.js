@@ -23,8 +23,8 @@ export default class Calendar extends React.Component {
     }
 
     dayClicked(event) {
-        event.preventDefault();
-        let name = event.target.name;
+      // event.preventDefault();
+        let name = event.target.value;
         let schedule = this.props.calendar.schedule[name];
         this.setState({schedule: schedule})
     }
