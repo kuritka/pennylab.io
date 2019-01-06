@@ -2,6 +2,7 @@ import React from 'react';
 import DaySelector from './daySelector';
 import {PropTypes} from 'prop-types'
 import moment from 'moment'
+import Canvas from './canvas'
 
 export default class Calendar extends React.Component {
 
@@ -30,13 +31,12 @@ export default class Calendar extends React.Component {
     }
 
     render() {
-        const format = "HH:mm";
-        const startTime = "07:00";
         return (
             <div>
                 <div>{this.props.calendar.name}</div>
                  <DaySelector onClick={this.dayClicked} /> 
-                 <div className="canvas">
+                 <Canvas schedule={this.state.calendar.schedule} />
+                 {/* <div className="canvas">
                     {[...Array(28)].map((x, i) => 
                         <div key={'item'+i} className={  this.isInRange(moment(startTime,format).add(i*30, 'minute'))   ?  "canvasItem selected" : "canvasItem unmarked" } >
                                 <time>{ moment(startTime,format).add(i*30, 'minute').format('LT') }</time>
@@ -44,7 +44,7 @@ export default class Calendar extends React.Component {
                                 <div className="name">J. Franklin</div>
                         </div>
                     )}
-               </div>  
+               </div>   */}
             </div>
         );
     }
