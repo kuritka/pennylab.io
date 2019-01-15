@@ -3,20 +3,26 @@ import './calendar.css';
 import {PropTypes} from 'prop-types'
 import moment from 'moment'
 
-const CanvasItem = (event, onClick) => {
-    console.log(event);
+const click = (callback, data) =>{
+    callback(data) ;
+} 
+
+const CanvasItem = (props) => { 
     return(
-        <div className="canvasItem">
-            <time>{event.event.From}</time>
-            <div className="message">{event.event.Subject}</div>
-            <div className="name">{event.event.Note}</div>
+        <div 
+        onClick={() => {click(props.onClick,props.event)}}
+        name={props.event.From}
+        className={props != null && props.event.From && props.event.Subject ? "selected canvasItem" : "unmarked canvasItem" }>
+            <time>{moment(props.event.From,"HH:mm").format("LT")}</time>
+            <div className="message">{props.event.Subject}</div>
+            <div className="name">{props.event.Note}</div>
         </div>
     )
 }
 
-
+  
 CanvasItem.propTypes = {
     event: PropTypes.object.isRequired,
-   // onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
 }
 export default CanvasItem;

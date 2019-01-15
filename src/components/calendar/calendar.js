@@ -1,7 +1,6 @@
 import React from 'react';
 import DaySelector from './daySelector';
 import {PropTypes} from 'prop-types'
-import moment from 'moment'
 import Canvas from './canvas'
 
 export default class Calendar extends React.Component {
@@ -10,17 +9,10 @@ export default class Calendar extends React.Component {
         super(props, context); 
         this.state = {
             calendar:  Object.assign({}, this.props.calendar),
-            schedule:  Object.assign({}, this.props.calendar.schedule)
+            schedule:  {}
         }      
-        this.isInRange = this.isInRange.bind(this);
         this.dayClicked = this.dayClicked.bind(this);
-    }
-
-    isInRange(time){
-        const format = "HH:mm";
-        if(!this.state.schedule.Events) return false;
-        const events =  this.state.schedule.Events.filter(x => moment(time, format).isBetween(moment(x.From,format).subtract(1,'minutes'),moment( x.To,format)));
-        return events && events[0] != null;
+        this.canvasItemClicked = this.canvasItemClicked.bind(this);
     }
 
     dayClicked(event) {
@@ -30,21 +22,17 @@ export default class Calendar extends React.Component {
         this.setState({schedule: schedule})
     }
 
+
+    canvasItemClicked(event) {
+        console.log(event);
+    }
+
     render() {
         return (
             <div>
                 <div>{this.props.calendar.name}</div>
                  <DaySelector onClick={this.dayClicked} /> 
-                 <Canvas schedule={this.state.calendar.schedule} />
-                 {/* <div className="canvas">
-                    {[...Array(28)].map((x, i) => 
-                        <div key={'item'+i} className={  this.isInRange(moment(startTime,format).add(i*30, 'minute'))   ?  "canvasItem selected" : "canvasItem unmarked" } >
-                                <time>{ moment(startTime,format).add(i*30, 'minute').format('LT') }</time>
-                                <div className="message"> blah blah blah</div>
-                                <div className="name">J. Franklin</div>
-                        </div>
-                    )}
-               </div>   */}
+                 <Canvas schedule={this.state.schedule} onClick={this.canvasItemClicked}/>
             </div>
         );
     }

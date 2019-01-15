@@ -15,7 +15,7 @@ const calendars = [
                     Week: "odd"
                 },
                 {
-                    From: "11:30",
+                    From: "14:30",
                     To: "12:30",
                     Note: "blah blah",
                     Subject: "Yoga",
