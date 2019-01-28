@@ -9,7 +9,7 @@ const calendars = [
             Events:[
                 {
                     From: "11:30",
-                    To: "12:30",
+                    To: "13:00",
                     Note: "blah blah",
                     Subject: "TRX",
                     Week: "odd"

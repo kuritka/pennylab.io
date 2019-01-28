@@ -131,36 +131,23 @@
 }
 
 
-
-
-
-
-
-
-/* 
-.anim-line{
-    position: relative;
-    top: 60%;  
-    width: 24em;
-    margin: 0 auto;
-    border-right: 2px solid rgba(255,255,255,.75);
-    font-size: 180%;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    transform: translateY(-50%);    
-} 
-
-.anim-typewriter{
-  animation: typewriter 4s steps(44) 1s 1 normal both,
-             blinkTextCursor 500ms steps(44) infinite normal;
+.selectedItem {
+    border: palevioletred 5px solid;
+    padding: 20px;
+    z-index: 100;
+    right:auto;
+    left:auto;
+    margin-left:-5px;
+    max-width: 760px;
+    width: 100%;
+    position: absolute;
+    opacity: 0.8;
+    background: plum;
 }
-@keyframes typewriter{
-  from{width: 0;}
-  to{width: 24em;}
+
+.selectedItem:hover{
+    background: plum;
+    opacity:1;
+    cursor: pointer;
 }
-@keyframes blinkTextCursor{
-  from{border-right-color: rgba(255,255,255,.75);}
-  to{border-right-color: transparent;}
-} */
 

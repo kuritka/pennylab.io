@@ -2,27 +2,32 @@ import React from 'react';
 import './calendar.css';
 import {PropTypes} from 'prop-types'
 import moment from 'moment'
+import * as constants from './constants'
+
 
 const click = (callback, data) =>{
     callback(data) ;
 } 
 
+
+
 const CanvasItem = (props) => { 
     return(
         <div 
-        onClick={() => {click(props.onClick,props.event)}}
-        name={props.event.From}
-        className={props != null && props.event.From && props.event.Subject ? "selected canvasItem" : "unmarked canvasItem" }>
-            <time>{moment(props.event.From,"HH:mm").format("LT")}</time>
-            <div className="message">{props.event.Subject}</div>
-            <div className="name">{props.event.Note}</div>
+            onClick={() => {click(props.onClick,props.data.Event)}}
+            name={props.data.Event.From}
+            className={props != null && props.data.Event.Subject ? "selected canvasItem" : "unmarked canvasItem" }
+            style={constants.IsDefaultEvent(props.data.Event) ?  {height: props.data.Interval *30} :{}}  >
+                <time>{moment(props.data.Event.From,"HH:mm").format("HH:mm")} - {moment(props.data.Event.To,"HH:mm").format("HH:mm")}</time>
+                <div className="message">{props.data.Event.Subject}</div>
+                <div className="name">{props.data.Event.Note}</div>
         </div>
     )
 }
 
   
 CanvasItem.propTypes = {
-    event: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
     onClick: PropTypes.func,
 }
 export default CanvasItem;
