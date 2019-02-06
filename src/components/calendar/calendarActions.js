@@ -19,3 +19,10 @@ export function loadCalendar(){
       });
     }
   }
+
+
+  export function loadCalendarEvent(event) { 
+    return {type: actionTypes.LOAD_CALENDAR_EVENT_SUCCESS, event}
+  }
+
+  

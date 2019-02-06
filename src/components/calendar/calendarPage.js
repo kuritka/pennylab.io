@@ -8,6 +8,14 @@ import * as  calendarActions from './calendarActions'
 
 class CalendarPage extends React.Component {
 
+    constructor(props, context) {
+        super(props, context);
+        this.onCalendarClick = this.onCalendarClick.bind(this);
+    }
+
+    onCalendarClick(event) {
+        console.log(event)
+    }
 
     render() {
         const {calendar} = this.props;
@@ -15,7 +23,7 @@ class CalendarPage extends React.Component {
             <div>
                 <h1>Calendar</h1>
                 <p>React Redux and React Router in ES6 for ultra responsive web apps</p>
-                <Calendar calendar={calendar} />
+                <Calendar calendar={calendar} onClick={this.onCalendarClick} />
                 <Link to="/">Home</Link>            
             </div>
         );
@@ -29,8 +37,6 @@ function mapStateToProps(state, ownProps){
         calendar: state.calendarReducerSate
     }
 }
-
-
 
 function mapDispatchToProps(dispatch){
     return {

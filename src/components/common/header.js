@@ -6,6 +6,7 @@ import HomePage from '../home/homePage'
 import ManageCoursesPage from '../course/courseManage'
 import LoadingDots from '../loadingDots/loadingDots'
 import {PropTypes} from 'prop-types'
+import ManageCalendarEvent from '../calendar/manageCalendarEvent'
 
 const Header = ({loading}) => {
     return (
@@ -29,6 +30,7 @@ const Header = ({loading}) => {
                 <Route exact path="/" component={HomePage} />
                 <Route path="/about" component={About} />
                 <Route path="/calendar" component={CalendarPage} />
+                <Route path="/event" component={ManageCalendarEvent} />
                 <Route path="/courses" component={CoursesPage} />
                 <Route path="/course/:id" component={ManageCoursesPage} />
             </div>

@@ -1,22 +1,31 @@
 import React from 'react';
-import DaySelector from './daySelector';
+import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux'
 import {PropTypes} from 'prop-types'
-import Canvas from './canvas'
-import * as constants from './constants'
 import moment from 'moment'
+import * as  calendarActions from './calendarActions'
+import * as constants from './constants'
+import DaySelector from './daySelector';
+import Canvas from './canvas'
+import CalendarEvent from './calendarEvent'
 
-export default class Calendar extends React.Component {
+
+
+
+class Calendar extends React.Component {
 
     constructor(props, context) {
         super(props, context); 
         this.state = {
             calendar:  Object.assign({}, this.props.calendar),
-            schedule:  {Events:[]}
+            schedule:  {Events:[]},
+            showEvent: false,
+            selectedEvent: {}                     
         }      
         this.dayClicked = this.dayClicked.bind(this);
         this.canvasItemClicked = this.canvasItemClicked.bind(this);
         this.computeSchedule = this.computeSchedule.bind(this);
-        this.mapToScheduleEvents = this.mapToScheduleEvents.bind(this)
+        this.mapToScheduleEvents = this.mapToScheduleEvents.bind(this);
     }
 
     computeSchedule(schedule){
@@ -46,7 +55,6 @@ export default class Calendar extends React.Component {
     }
 
     dayClicked(event) {
-      // event.preventDefault();
         let name = event.target.value;
         let schedule = this.props.calendar.schedule[name];
         this.setState({schedule: schedule})
@@ -54,7 +62,8 @@ export default class Calendar extends React.Component {
 
 
     canvasItemClicked(event) {
-        console.log(event);
+        this.props.actions.loadCalendarEvent(event);
+        this.setState({showEvent: true, selectedEvent: event});
     }
 
     render() {
@@ -63,12 +72,44 @@ export default class Calendar extends React.Component {
                 <div>{this.props.calendar.name}</div>
                 <DaySelector onClick={this.dayClicked} /> 
                 <Canvas schedule={this.computeSchedule(this.state.schedule)} 
-                    onClick={this.canvasItemClicked}/>
-            </div>
+                    onClick={this.canvasItemClicked} />
+                 { this.state.showEvent ? <CalendarEvent event={this.state.selectedEvent}/> : null }
+           </div>
         );
     }
 }
 
 Calendar.propTypes = {
     calendar: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
+
+
+
+//state is state within redux store. Injects few values to local state  and render method will render it... 
+function mapStateToProps(state, ownProps){
+    return {
+        calendar: state.calendarReducerSate
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        //createCourse: (course) => dispatch(createCourse(course)) 
+        actions: bindActionCreators(calendarActions,dispatch)
+    }
+}
+
+
+Calendar.propTypes = {
+    calendar: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
+}
+
+
+//wrapping CoursePage into react-redux
+//with router is here because Calendar is sub component of calendar page and 
+//props.history is not injected to sub components form their parent. It is done by router component
+//export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Calendar));
+export default connect(mapStateToProps,mapDispatchToProps)(Calendar);
+
