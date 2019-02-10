@@ -1,6 +1,6 @@
 import React  from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import CalendarPage from '../calendar/calendarPage'
+import Calendar from '../calendar/calendar'
 import CoursesPage  from '../course/coursesPage'
 import HomePage from '../home/homePage'
 import ManageCoursesPage from '../course/courseManage'
@@ -29,7 +29,7 @@ const Header = ({loading}) => {
                 </ul>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/about" component={About} />
-                <Route path="/calendar" component={CalendarPage} />
+                <Route path="/calendar" component={Calendar} />
                 <Route path="/event" component={ManageCalendarEvent} />
                 <Route path="/courses" component={CoursesPage} />
                 <Route path="/course/:id" component={ManageCoursesPage} />

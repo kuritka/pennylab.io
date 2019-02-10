@@ -162,6 +162,24 @@ export const EmptyCalendar = {
     },
 }
 
+
+const weekType = [
+    {
+        id: 'Both',
+        value: 'Both',
+    },
+    {
+        id: 'Even',
+        value: 'Even',
+    },
+    {
+        id: 'Odd',
+        value: 'Odd',
+    },
+]
+
+
+
 class CalendarApi {
     
     static getAllCalendars() {
@@ -179,6 +197,14 @@ class CalendarApi {
             if(calendar && calendar[0] != null)  resolve(Object.assign([], calendar[0]));
             resolve(Object.assign([], EmptyCalendar)); 
         });
+    }
+
+    static getAllWeekTypes() { 
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve(Object.assign([], weekType));
+            }, delay);
+          });
     }
 }
 

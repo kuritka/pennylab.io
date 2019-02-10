@@ -2,22 +2,26 @@ import React from 'react';
 import './calendar.css';
 import {PropTypes} from 'prop-types'
 import TextInput from '../common/textInput'
-import * as constants from './constants'
-import moment from 'moment'
+import SelectInput from '../common/selectInput'
 
 
-const CalendarEvent = ({event, onSave, onChange, saving, errors}) => {
-    console.log(event)
-    return (
+const CalendarEventForm = ({event, allWeekTypes, onSave, onChange, saving, errors}) => {
+    return ( 
         <form>            
-            <TextInput value={event.Subject} name="subject" label="subject" />
+            <TextInput value={event.Event.Subject} name="Subject" label="Subject" onChange={onChange} />
+            <TextInput value={event.Event.From} name="From" label="From" onChange={onChange} />
+            <TextInput value={event.Event.To} name="To" label="To" onChange={onChange} />
+            <TextInput value={event.Event.Note} name="Note" label="Note" onChange={onChange} />
+            <SelectInput name="Week" label="Week" value={event.Event.Odd} defaultOption="Select Week" onChange={onChange} options={allWeekTypes}/>
             <input type="submit" disabled={saving} value={saving ? 'Saving...' : 'Save'} onClick={onSave}/>
         </form>
     )
 }
 
-CalendarEvent.propTypes = {
+CalendarEventForm.propTypes = {
     event: PropTypes.object.isRequired,
+    onChange: PropTypes.func,
+    allWeekTypes: PropTypes.array.isRequired,
 }
 
-export default CalendarEvent;
+export default CalendarEventForm;

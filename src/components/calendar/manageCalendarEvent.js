@@ -3,19 +3,19 @@ import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux'
 import {PropTypes} from 'prop-types'
 import * as  calendarActions from './calendarActions'
-import CalendarEvent from './calendarEvent';
+import CalendarEventForm from './calendarEvent';
 
 class ManageCalendarEvent extends React.Component {
     
-    constructor(props, context) {
-        super(props, context);
-    }
+    // constructor(props, context) {
+    //     super(props, context);
+    // }
 
     render(){
         return(
             <div>
                 <h1>Event planning</h1>
-                 <CalendarEvent />
+                 <CalendarEventForm />
             </div>
         )
     }

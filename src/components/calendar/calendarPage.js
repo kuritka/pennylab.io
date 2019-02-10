@@ -10,20 +10,24 @@ class CalendarPage extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.onCalendarClick = this.onCalendarClick.bind(this);
+        this.onCalendarClick = this.redirectToEvent.bind(this);
     }
 
-    onCalendarClick(event) {
-        console.log(event)
+    redirectToEvent(event) {
+       if(event.SelectedDay) { 
+            this.props.history.push('/events');
+            console.log(event);
+       }
     }
 
     render() {
         const {calendar} = this.props;
+        console.log(this.props)
         return (
             <div>
                 <h1>Calendar</h1>
                 <p>React Redux and React Router in ES6 for ultra responsive web apps</p>
-                <Calendar calendar={calendar} onClick={this.onCalendarClick} />
+                <Calendar calendar={calendar} onClick={this.redirectToEvent} />
                 <Link to="/">Home</Link>            
             </div>
         );

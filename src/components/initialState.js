@@ -7,6 +7,7 @@ export default
 {
     authors: [],
     courses: [],
+    weekTypes: [],
     calendar: EmptyCalendar,
     numAjaxCallInProgress: 0
 }

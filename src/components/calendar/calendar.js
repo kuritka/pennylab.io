@@ -7,7 +7,7 @@ import * as  calendarActions from './calendarActions'
 import * as constants from './constants'
 import DaySelector from './daySelector';
 import Canvas from './canvas'
-import CalendarEvent from './calendarEvent'
+import CalendarEventForm from './calendarEvent'
 
 
 
@@ -20,12 +20,15 @@ class Calendar extends React.Component {
             calendar:  Object.assign({}, this.props.calendar),
             schedule:  {Events:[]},
             showEvent: false,
-            selectedEvent: {}                     
+            selectedEvent: {},
+            selectedDay: "",                     
         }      
         this.dayClicked = this.dayClicked.bind(this);
-        this.canvasItemClicked = this.canvasItemClicked.bind(this);
         this.computeSchedule = this.computeSchedule.bind(this);
         this.mapToScheduleEvents = this.mapToScheduleEvents.bind(this);
+        this.eventClicked = this.eventClicked.bind(this);
+        this.saveEvent = this.saveEvent.bind(this);
+        this.changeEvent = this.changeEvent.bind(this);
     }
 
     computeSchedule(schedule){
@@ -39,11 +42,11 @@ class Calendar extends React.Component {
             if(e != null){ 
                 if(arr.length > 0 && JSON.stringify(arr[arr.length -1].Event) !== JSON.stringify(e)){
                     var interval = moment.duration(moment(e.To,constants.format).diff(moment(e.From,constants.format))).asMinutes() / constants.interval;
-                    arr.push({Time: timeFrom, Event: e, Interval:interval})
+                    arr.push({Time: timeFrom, Event: e, Interval:interval, SelectedDay: schedule.SelectedDay})
                 }
                 continue
             } 
-            arr.push({Time: timeFrom, Event: constants.GetDefaultEvent(timeFrom, timeTo), Interval: 1})
+            arr.push({Time: timeFrom, Event: constants.GetDefaultEvent(timeFrom, timeTo), Interval: 1, SelectedDay: schedule.SelectedDay})
         }
         return arr;
     }
@@ -55,40 +58,68 @@ class Calendar extends React.Component {
     }
 
     dayClicked(event) {
-        let name = event.target.value;
+        let name = event.target.value;        
         let schedule = this.props.calendar.schedule[name];
-        this.setState({schedule: schedule})
+        schedule.SelectedDay = name;
+        this.setState({schedule: schedule, selectedDay: name})
     }
 
 
-    canvasItemClicked(event) {
-        this.props.actions.loadCalendarEvent(event);
-        this.setState({showEvent: true, selectedEvent: event});
+    eventClicked(event) {
+        if(event.SelectedDay){
+            this.setState({showEvent: true,selectedEvent: event });
+        }
     }
+
+    saveEvent(event){
+
+    }
+
+    changeEvent(event) { 
+        console.log(event.target.name);
+        console.log(this.state.selectedEvent);
+    //     let schedule = this.state.calendar.schedule[name].
+    //     const field = event.target.name;
+        
+    //      let calendar =  this.state.calendar;
+    //      //course[field] =  event.target.value;
+    //    //  return this.setState({calendar: calendar});
+        return
+    }
+
 
     render() {
         return (
             <div>
                 <div>{this.props.calendar.name}</div>
-                <DaySelector onClick={this.dayClicked} /> 
-                <Canvas schedule={this.computeSchedule(this.state.schedule)} 
-                    onClick={this.canvasItemClicked} />
-                 { this.state.showEvent ? <CalendarEvent event={this.state.selectedEvent}/> : null }
+                 { this.state.showEvent ?
+
+                    <CalendarEventForm onChange={this.changeEvent} onSave={this.onSave} allWeekTypes={this.props.weekTypes} event={this.state.selectedEvent}/> : 
+                    <div>
+                        <DaySelector onClick={this.dayClicked} /> 
+                        <Canvas schedule={this.computeSchedule(this.state.schedule)} 
+                        onClick={this.eventClicked} />
+                    </div>
+                }
            </div>
         );
     }
-}
-
-Calendar.propTypes = {
-    calendar: PropTypes.object.isRequired,
-    onClick: PropTypes.func.isRequired,
 }
 
 
 
 //state is state within redux store. Injects few values to local state  and render method will render it... 
 function mapStateToProps(state, ownProps){
+
+    const weekTypesDropDown = state.weekTypesReducerState.map(weekType => 
+        {
+           return {
+              value: weekType.id,
+              text: weekType.id
+           }
+        });
     return {
+        weekTypes: weekTypesDropDown,
         calendar: state.calendarReducerSate
     }
 }
@@ -103,7 +134,8 @@ function mapDispatchToProps(dispatch){
 
 Calendar.propTypes = {
     calendar: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+   // onClick: PropTypes.func.isRequired,
 }
 
 

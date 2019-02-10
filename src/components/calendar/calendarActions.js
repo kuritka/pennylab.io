@@ -6,6 +6,10 @@ export function loadCalendarSuccess(calendar){
     return {type: actionTypes.LOAD_CALENDAR_SUCCESS, calendar}
 }
 
+export function loadWeekTypeSuccess() {
+
+}
+
 
 //list of thunks...
 export function loadCalendar(){
@@ -20,9 +24,18 @@ export function loadCalendar(){
     }
   }
 
+export function loadAllWeekTypes(){
+  return function(dispatch) {
+    return calendarApi.getAllWeekTypes().then(weekTypes => {
+      console.log(weekTypes);
+      dispatch(loadWeekTypeSuccess(weekTypes))
+    }).catch(error => {throw(error);});
+  }
+} 
 
-  export function loadCalendarEvent(event) { 
-    return {type: actionTypes.LOAD_CALENDAR_EVENT_SUCCESS, event}
+
+  export function loadCalendarEvent(calendar) {
+    return {type: actionTypes.LOAD_CALENDAR_EVENT_SUCCESS, calendar}
   }
 
   

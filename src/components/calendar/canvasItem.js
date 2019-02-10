@@ -14,7 +14,7 @@ const click = (callback, data) =>{
 const CanvasItem = (props) => { 
     return(
         <div 
-            onClick={() => {click(props.onClick,props.data.Event)}}
+            onClick={() => {click(props.onClick,props.data)}}
             name={props.data.Event.From}
             className={props != null && props.data.Event.Subject ? "selected canvasItem" : "unmarked canvasItem" }
             style={constants.IsDefaultEvent(props.data.Event) ?  {height: props.data.Interval *30} :{}}  >
