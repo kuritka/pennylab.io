@@ -20,7 +20,7 @@ const CalendarEventForm = ({event, allWeekTypes, onSave, onChange, saving, error
 
 CalendarEventForm.propTypes = {
     event: PropTypes.object.isRequired,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
     allWeekTypes: PropTypes.array.isRequired,
 }
 

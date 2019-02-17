@@ -27,7 +27,6 @@ export function loadCalendar(){
 export function loadAllWeekTypes(){
   return function(dispatch) {
     return calendarApi.getAllWeekTypes().then(weekTypes => {
-      console.log(weekTypes);
       dispatch(loadWeekTypeSuccess(weekTypes))
     }).catch(error => {throw(error);});
   }

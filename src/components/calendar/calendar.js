@@ -32,8 +32,10 @@ class Calendar extends React.Component {
     }
 
     computeSchedule(schedule){
+        const noIndex = -1;
         var slices = (moment(moment(constants.endTime,constants.format).diff(moment(constants.startTime,constants.format))).format("HH")-1)*(60/constants.interval)
         var arr =[]
+        var realIndex = 0;
         for(var i =0; i < slices; i++){
             var momentStart = moment(constants.startTime,constants.format);
             var timeFrom = moment(momentStart.add(i*constants.interval, 'minute')).format(constants.format); 
@@ -42,11 +44,24 @@ class Calendar extends React.Component {
             if(e != null){ 
                 if(arr.length > 0 && JSON.stringify(arr[arr.length -1].Event) !== JSON.stringify(e)){
                     var interval = moment.duration(moment(e.To,constants.format).diff(moment(e.From,constants.format))).asMinutes() / constants.interval;
-                    arr.push({Time: timeFrom, Event: e, Interval:interval, SelectedDay: schedule.SelectedDay})
+                    arr.push({Time: timeFrom, Event: e, Interval:interval, SelectedDay: schedule.SelectedDay, Index: realIndex++})
                 }
                 continue
             } 
-            arr.push({Time: timeFrom, Event: constants.GetDefaultEvent(timeFrom, timeTo), Interval: 1, SelectedDay: schedule.SelectedDay})
+            arr.push({Time: timeFrom, Event: constants.GetDefaultEvent(timeFrom, timeTo), Interval: 1, SelectedDay: schedule.SelectedDay, Index: noIndex})
+        }
+        //fix prolinate time ranges
+        for(var current=0 ; current<arr.length; current++ ){
+            var following = current+1;
+            if(following <  arr.length-1){
+                if(arr[current].Index === noIndex){
+                    arr[current].Event.To =  arr[following].Event.From         
+                }
+                //TODO: following hour
+                // if(arr[following].Index === noIndex){
+                //     arr[following].Event.From =  arr[current].Event.To
+                // }
+            }
         }
         return arr;
     }
@@ -72,19 +87,26 @@ class Calendar extends React.Component {
     }
 
     saveEvent(event){
-
+        event.preventDefault();
+        this.setState({showEvent: false});
     }
 
     changeEvent(event) { 
-        console.log(event.target.name);
-        console.log(this.state.selectedEvent);
-    //     let schedule = this.state.calendar.schedule[name].
-    //     const field = event.target.name;
-        
-    //      let calendar =  this.state.calendar;
-    //      //course[field] =  event.target.value;
-    //    //  return this.setState({calendar: calendar});
-        return
+        const selectedEvent = this.state.selectedEvent;
+        const field = event.target.name;
+        let c = this.props.calendar;
+        if(selectedEvent.Index === -1) {
+            selectedEvent.Index = c.schedule[selectedEvent.SelectedDay].Events.length;
+            c.schedule[selectedEvent.SelectedDay].Events.push(selectedEvent.Event);
+        }
+
+        if(selectedEvent.Index > -1){
+            console.log(selectedEvent);
+            selectedEvent.Event[field] = event.target.value;
+            c.schedule[selectedEvent.SelectedDay].Events[selectedEvent.Index][field] = event.target.value;
+        }
+                
+        return this.setState({calendar: c, selectedEvent: selectedEvent});
     }
 
 
@@ -93,8 +115,7 @@ class Calendar extends React.Component {
             <div>
                 <div>{this.props.calendar.name}</div>
                  { this.state.showEvent ?
-
-                    <CalendarEventForm onChange={this.changeEvent} onSave={this.onSave} allWeekTypes={this.props.weekTypes} event={this.state.selectedEvent}/> : 
+                    <CalendarEventForm onChange={this.changeEvent} onSave={this.saveEvent} allWeekTypes={this.props.weekTypes} event={this.state.selectedEvent}/> : 
                     <div>
                         <DaySelector onClick={this.dayClicked} /> 
                         <Canvas schedule={this.computeSchedule(this.state.schedule)} 

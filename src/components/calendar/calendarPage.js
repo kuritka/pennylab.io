@@ -16,13 +16,11 @@ class CalendarPage extends React.Component {
     redirectToEvent(event) {
        if(event.SelectedDay) { 
             this.props.history.push('/events');
-            console.log(event);
        }
     }
 
     render() {
         const {calendar} = this.props;
-        console.log(this.props)
         return (
             <div>
                 <h1>Calendar</h1>
