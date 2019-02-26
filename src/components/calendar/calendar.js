@@ -88,6 +88,7 @@ class Calendar extends React.Component {
 
     saveEvent(event){
         event.preventDefault();
+        console.log(this.state.selectedDay);
         this.setState({showEvent: false});
     }
 
@@ -101,11 +102,10 @@ class Calendar extends React.Component {
         }
 
         if(selectedEvent.Index > -1){
-            console.log(selectedEvent);
             selectedEvent.Event[field] = event.target.value;
             c.schedule[selectedEvent.SelectedDay].Events[selectedEvent.Index][field] = event.target.value;
         }
-                
+
         return this.setState({calendar: c, selectedEvent: selectedEvent});
     }
 
@@ -117,7 +117,7 @@ class Calendar extends React.Component {
                  { this.state.showEvent ?
                     <CalendarEventForm onChange={this.changeEvent} onSave={this.saveEvent} allWeekTypes={this.props.weekTypes} event={this.state.selectedEvent}/> : 
                     <div>
-                        <DaySelector onClick={this.dayClicked} /> 
+                        <DaySelector onClick={this.dayClicked} day={this.state.selectedDay} /> 
                         <Canvas schedule={this.computeSchedule(this.state.schedule)} 
                         onClick={this.eventClicked} />
                     </div>
